@@ -13,5 +13,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: |
-        apt-get update -y && apt-get install -y gcc make nasm
+        sudo apt-get update -y
+        sudo apt-get install -y gcc make nasm
         make
