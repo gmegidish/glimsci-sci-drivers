@@ -17,20 +17,3 @@ jobs:
         sudo apt-get install -y gcc make nasm
         make
         ls -l wip.drv
-    - uses: actions/release@v1
-      with:
-        draft: false
-        prerelease: false
-        release_name: ${{ steps.version.outputs.version }}
-        tag_name: ${{ github.ref }}
-      env:  
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: upload linux artifact
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: wip.drv
-        asset_name: wip.drv
-        asset_content_type: application/octet-stream
