@@ -1,5 +1,6 @@
-; PCPLUS.DRV - An SCI video driver for the Plantronics ColorPlus.
-; Copyright (C) 2020  Benedikt Freisen
+; GLITCH.DRV - A collection of SCI video drivers
+; Copyright (C) 2024 Gil Megidish
+; Based on code by Benedikt Freisen
 ;
 ; This library is free software; you can redistribute it and/or
 ; modify it under the terms of the GNU Lesser General Public
@@ -31,7 +32,7 @@ entry:  jmp     dispatch
 
 ; magic numbers followed by two pascal strings
 signature       db      00h, 21h, 43h, 65h, 87h, 00h
-driver_name     db      6, "pcplus"
+driver_name     db      6, "glitch"
 description     db      33, "Plantronics ColorPlus - 16 Colors"
 
 ; call-table for the dispatcher
