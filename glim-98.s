@@ -26,6 +26,7 @@ x0		dw	0
 y0		dw	0
 x1		dw	0
 y1		dw	0
+cursor_counter  dw      0
 
 palette:
 		db 0x00, 0x00, 0x00 ; black
@@ -164,17 +165,16 @@ update_rect:
 	pop	ds
 	ret
 
-;-------------- show_cursor --------------------------------------------
-; Increment the mouse cursor visibility counter and draw the cursor if
-; the counter reaches one.
-;
-; Parameters:   --
-; Returns:      --
-;-----------------------------------------------------------------------
 show_cursor:
+	pushf
+	inc	word [cursor_counter]
+	popf
         ret
 
 hide_cursor:
+	pushf
+	dec	word [cursor_counter]
+	popf
         ret
 
 move_cursor:

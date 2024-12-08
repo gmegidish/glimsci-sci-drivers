@@ -1,7 +1,15 @@
-all: wip.drv glimst.drv glim500.drv glimpc98.drv
+OBJS=\
+     glim8bit.drv \
+     glim-st.drv \
+     glim-500.drv \
+     glim-98.drv \
+     glim-agi.drv \
+     glimflip.drv
+
+all: $(OBJS)
 
 clean:
-	rm -f generate-palette atari-st-palette.inc wip.drv
+	rm -f generate-palette atari-st-palette.inc $(OBJS)
 
 generate-palette: generate-palette.c
 	gcc -o generate-palette generate-palette.c
@@ -12,11 +20,5 @@ generate-palette: generate-palette.c
 atari-st-palette.inc: generate-palette
 	./generate-palette > $@
 
-wip.drv: atari-st-palette.inc wip.s
-
-glimst.drv: glimst.s
-
-glim500.drv: glim500.s
-
-glimpc98.drv: glimpc98.s
+glim8bit.drv: atari-st-palette.inc glim8bit.s
 
