@@ -41,9 +41,6 @@ x1		dw	0
 y1		dw	0
 mul320		times(200) dw 0
 
-palette:
-	%include "atari-st-palette.inc"
-
 ;-------------- dispatch -----------------------------------------------
 ; This is the dispatch routine that delegates the incoming far-call to
 ; to the requested function via call.
@@ -73,7 +70,6 @@ dispatch:
 ;
 ; Parameters:   --
 ; Returns:      ax      number of colors
-; Notes:        The PC1512 driver returns the word -1, instead.
 ;-----------------------------------------------------------------------
 get_color_depth:
         mov     ax, 16
@@ -90,42 +86,23 @@ init_video_mode:
         ; get current video mode
         mov     ah, 0fh
         int     10h
-
-        ; save mode number
         push    ax
 
-        ; set video mode 0x13 (320x200 - 256 colors)
         mov     ax, 13h
         int     10h
-
-	lea	si, [palette]
-	mov	ax, cs
-	mov	ds, ax
-
-	xor	ax, ax
-	mov	dx, 3c8h
-	out	dx, al
-	inc	dx
-	mov	cx, 300h
-.loop3:
-	lodsb
-	out	dx, al
-	loop	.loop3
 
 	; prepare lookup table
 	xor	ax, ax
 	mov	cx, 200
 	lea	si, [mul320]
 .loop4:
-	mov	ds:[si], ax
+	mov	[si], ax
 	add	si, 2
 	add	ax, 320
 	loop	.loop4
 
-        ; restore mode number
         pop     ax
         xor     ah,ah
-
         ret
 
 ;-------------- restore_mode -------------------------------------------
@@ -223,8 +200,6 @@ update_rect:
 
 .done_copy:
 	pop	ds
-	ret
-
         ret
 
 ;-------------- show_cursor --------------------------------------------

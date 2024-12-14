@@ -1,41 +1,7 @@
 ; glimsci.drv - Collection of SCIV video drivers, all hacked up
 ; Copyright (C) 2024 Gil Megidish
-; Based on code by Benedikt Freisen
+; Based on code by Benedikt Freisen (
 
-; This library is free software; you can redistribute it and/or
-; modify it under the terms of the GNU Lesser General Public
-; License as published by the Free Software Foundation; either
-; version 2.1 of the License, or (at your option) any later version.
-;
-; This library is distributed in the hope that it will be useful,
-; but WITHOUT ANY WARRANTY; without even the implied warranty of
-; MERCHANTABILITY or FITNESS FOR A PARTICULAR PUR;POSE.  See the GNU
-; Lesser General Public License for more details.
-;
-; You should have received a copy of the GNU Lesser General Public
-; License along with this library; if not, write to the Free Software
-; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-
-; SCI drivers use a single code/data segment starting at offset 0
-[bits 16]
-[org 0]
-
-;-------------- entry --------------------------------------------------
-; This is the driver entry point that delegates the incoming far-call
-; to the dispatch routine via jmp.
-;
-; Parameters:   bp      index into the call table (always even)
-;               ?       depends on the requested function
-; Returns:      ?       depends on the requested function
-;-----------------------------------------------------------------------
-entry:  jmp     dispatch
-
-; magic numbers followed by two pascal strings
-signature       db      00h, 21h, 43h, 65h, 87h, 00h
-driver_name     db      8, "glim8bit"
-description     db      34, "MCGA - GLIMSCI - 8BIT - 136 colors"
-
-; call-table for the dispatcher
 call_tab        dw      get_color_depth         ; bp = 0
                 dw      init_video_mode         ; bp = 2
                 dw      restore_mode            ; bp = 4
@@ -47,16 +13,11 @@ call_tab        dw      get_color_depth         ; bp = 0
                 dw      shake_screen            ; bp = 16
                 dw      scroll_rect             ; bp = 18
 
-cursor_counter  dw      0
-
 x0		dw	0
 y0		dw	0
 x1		dw	0
 y1		dw	0
-mul320		times(200) dw 0
-
-palette:
-	%include "atari-st-palette.inc"
+cursor_counter	dw	0
 
 ;-------------- dispatch -----------------------------------------------
 ; This is the dispatch routine that delegates the incoming far-call to
@@ -111,29 +72,20 @@ init_video_mode:
         mov     ax, 13h
         int     10h
 
-	lea	si, [palette]
-	mov	ax, cs
-	mov	ds, ax
+	lea si, [palette]
+	mov ax, cs
+	mov ds, ax
 
-	xor	ax, ax
-	mov	dx, 3c8h
-	out	dx, al
-	inc	dx
-	mov	cx, 300h
-.loop3:
+	xor ax, ax
+	mov dx, 3c8h
+	out dx, al
+	inc dx
+	mov cx, 300h
+.pal:
 	lodsb
-	out	dx, al
-	loop	.loop3
-
-	; prepare lookup table
-	xor	ax, ax
-	mov	cx, 200
-	lea	si, [mul320]
-.loop4:
-	mov	ds:[si], ax
-	add	si, 2
-	add	ax, 320
-	loop	.loop4
+	shr al, 2
+	out dx, al
+	loop .pal
 
         ; restore mode number
         pop     ax
@@ -192,44 +144,27 @@ update_rect:
 	ja	.done_copy
 
 	; get offset of (x0, y)
-	mov	bx, word [y0]
-	shl	bx, 1
-	lea	si, [mul320]
-	cs	mov	ax, [si + bx]
+	mov	ax, word [y0]
+	mov	bx, ax
+	shl	ax, 8	; *256
+	shl	bx, 6	; *32
+	add	ax, bx
 	add	ax, word [x0]
 	mov	di, ax	; 8bpp
 	shr	ax, 1
 	mov	si, ax ; 4bpp
 	mov	cx, word [x1]
 	sub	cx, word [x0]
-	inc	cx
-.loop_even:
-	ds	mov al, byte [si]		; read 2 pixels at x0+0
-	cmp	al, 0f0h			; dont touch white+black (usually text)
-	je	.copy
-	cmp	al, 00fh			; dont touch black+white (usually text)
-	je	.copy
-	and	al, 0fh
-	es	mov byte [di], al
-	inc	si
-	inc	di
-	es	mov byte [di], al
-	inc	di
-	loop	.loop_even
-	jmp	.end_of_row
-.copy:
+.loop_x:
+	ds	lodsb
 	mov	ah, al
 	and	al, 0fh
-	shr	ah, 4
-	es	mov byte [di], ah
-	inc	di
-	es	mov byte [di], al
-	inc	di
-	inc	si
-	loop	.loop_even
+	shr     ah, 4
+	es	mov	byte [di+0], ah
+	es	mov	byte [di+1], al
+	add	di, 2
+	loop	.loop_x
 
-.end_of_row:
-	; end of row
 	inc	word [y0]
 	jmp	.loop_y
 
