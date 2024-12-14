@@ -22,5 +22,5 @@ $(OUTDIR)/%.drv: %.s
 atari-st-palette.inc: generate-palette
 	./generate-palette > $@
 
-glim8bit.drv: atari-st-palette.inc glim8bit.s
+$(OUTDIR)/glim8bit.drv: atari-st-palette.inc glim8bit.s
 
