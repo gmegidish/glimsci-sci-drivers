@@ -17,15 +17,15 @@ Downsample the original 320x200 display to 160x200. Resembling the aesthetics of
 
 |||
 |-|-|
-| <img src="img/camelot-agi-1.png" width="640" height="400">|<img src="img/camelot-agi-2.png" width="640" height="400">|
-| <img src="img/lsl2-agi-1.png" width="640" height="400">|<img src="img/lsl2-agi-2.png" width="640" height="400">|
+| <img src="img/camelot-agi-1.png" width="400">|<img src="img/camelot-agi-2.png" width="400">|
+| <img src="img/lsl2-agi-1.png" width="400">|<img src="img/lsl2-agi-2.png" width="400">|
 
 ### Custom Palettes: Amiga 500, Atari ST, PC-98
 
 |||
 |---|---|
-| <img src="img/qfg-spielburg-ega.png" width="640" height="400">|<img src="img/qfg-spielburg-amiga.png" width="640" height="400">|
-|<img src="img/qfg-spielburg-atarist.png" width="640" height="400">|<img src="img/qfg-spielburg-pc98.png" width="640" height="400">|
+| <img src="img/qfg-spielburg-ega.png" width="400">|<img src="img/qfg-spielburg-amiga.png" width="400">|
+|<img src="img/qfg-spielburg-atarist.png" width="400">|<img src="img/qfg-spielburg-pc98.png" width="400">|
 
 ## How to Compile
 To compile the drivers, you'll need:
