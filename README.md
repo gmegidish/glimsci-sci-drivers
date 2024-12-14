@@ -1,15 +1,15 @@
 ## Introduction
 
-glimsci is a collection of VGA video drivers for Sierra's SCI (Sierra Creative Interpreter) game engine. It provides multiple 16-color VGA display modes with different palettes inspired by classic computer systems like the Amiga 500, PC-98, Atari ST, and others.
+**glimsci** (/ˈɡlɪm.ski/) is a collection of VGA video drivers for Sierra Creative Interpreter (SCI) game engine. It provides multiple display modes with different palettes inspired by classic computer systems like the Amiga 500, PC-98, Atari ST, and other hacks.
 
 ## Available Drivers
 
 | Driver | Description |
 |--------|-------------|
-| glim-98 | A VGA driver that emulates the PC-98 color palette and display characteristics. Optimized for games with an anime/visual novel aesthetic. |
-| glim-agi | Provides a color palette similar to Sierra's AGI engine games, offering a nostalgic look for classic adventure games. |
-| glim-500 | Emulates the Amiga 500's color palette and display characteristics, providing rich, vibrant colors typical of Amiga games. |
-| glim-st | Atari ST-inspired color palette and display mode. |
+| glim-agi | Downscale display to 160x200 to mimic old AGI games |
+| glim-98 | Emulate PC-98 palette |
+| glim-500 | Emulate Amiga 500 palette |
+| glim-st | Emulate Atari ST palette |
 
 ### AGI Driver (Faux 160x200)
 
@@ -49,4 +49,4 @@ To use a driver with your SCI game:
 This project is available under the LGPL License.
 
 ## Credits
-**Big shoutout** goes out to Benedikt Freisen for their work on reverse-engineering the SCI engine drivers. You can see the original work at [FOSS SCI Drivers](https://github.com/roybaer/foss_sci_drivers/).
+Big shoutout goes out to **Benedikt Freisen** for their work on reverse-engineering the SCI engine drivers. You can see the original work at [FOSS SCI Drivers](https://github.com/roybaer/foss_sci_drivers/).
