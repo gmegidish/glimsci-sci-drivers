@@ -13,7 +13,7 @@
 
 ### AGI Driver (Faux 160x200)
 
-Downsample the original 320x200 display to 160x200. Resembling the aesthetics of the original AGI games. All it does it draw every even pixel twice and drop every odd pixel. You will notice that if there is a black pixel or a white pixel in two adjacent pixels, both will be rendere, so the text could be read properly.
+Downsample the original 320x200 display to 160x200. Resembling the aesthetics of the original AGI games. All it does is draw even pixels twice and drop odd pixels. You will notice that it keeps black and white pixels to make the text readable.
 
 |||
 |-|-|
