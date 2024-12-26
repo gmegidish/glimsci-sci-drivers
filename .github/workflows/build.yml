@@ -15,8 +15,8 @@ jobs:
       uses: actions/checkout@v4
     - name: Build drivers
       run: |
-        sudo apt-get update -y -jj
-        sudo apt-get install -y -jj gcc make nasm
+        sudo apt-get update -y -qq
+        sudo apt-get install -y -qq gcc make nasm
         make
         ls -l drivers/*.drv
         zip -9 -j sci-drivers.zip drivers/*.drv
