@@ -1,6 +1,6 @@
 ; glimsci.drv - Collection of SCIV video drivers, all hacked up
 ; Copyright (C) 2024 Gil Megidish
-; Based on code by Benedikt Freisen (
+; Based on code by Benedikt Freisen
 
 [bits 16]
 [org 0]
