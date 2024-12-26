@@ -1,6 +1,6 @@
 OUTDIR=drivers
 OBJS=\
-     $(OUTDIR)/glim8bit.drv \
+     $(OUTDIR)/glim-a2.drv \
      $(OUTDIR)/glim-st.drv \
      $(OUTDIR)/glim-500.drv \
      $(OUTDIR)/glim-98.drv \
