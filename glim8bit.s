@@ -33,7 +33,7 @@ entry:  jmp     dispatch
 ; magic numbers followed by two pascal strings
 signature       db      00h, 21h, 43h, 65h, 87h, 00h
 driver_name     db      8, "glim8bit"
-description     db      34, "MCGA - GLIMSCI - 8BIT - 136 colors"
+description     db      34, "MCGA - GLIMSCI - 8BIT - 127 colors"
 
 ; call-table for the dispatcher
 call_tab        dw      get_color_depth         ; bp = 0
