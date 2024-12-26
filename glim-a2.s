@@ -19,7 +19,7 @@ entry:  jmp     dispatch
 ; magic numbers followed by two pascal strings
 signature       db      00h, 21h, 43h, 65h, 87h, 00h
 driver_name     db      7, "glim-a2"
-description     db      35, "MCGA - GLIMSCI - Apple II DHGR - 320x200"
+description     db      40, "MCGA - GLIMSCI - Apple II DHGR - 320x200"
 
 ; call-table for the dispatcher
 call_tab        dw      get_color_depth         ; bp = 0
