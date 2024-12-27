@@ -61,5 +61,8 @@ To use a driver with your SCI game:
 ## License
 This project is available under the LGPL License.
 
+## Contact
+Contact me at [@gilmegidish](https://x.com/gilmegidish) or [gil@megidish.net](mailto:gil@megidish.net)
+
 ## Credits
 Big shoutout goes out to **Benedikt Freisen** for their work on reverse-engineering the SCI engine drivers. You can see the original work at [FOSS SCI Drivers](https://github.com/roybaer/foss_sci_drivers/).
